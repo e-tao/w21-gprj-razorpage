@@ -17,6 +17,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<DBContext>(options =>
     options.UseLazyLoadingProxies().UseSqlite(builder.Configuration.GetConnectionString("DBContext")));
 
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<DBContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,7 +34,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

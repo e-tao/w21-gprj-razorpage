@@ -1,6 +1,6 @@
 #nullable disable
 
-public class DBContext : DbContext
+public class DBContext : IdentityDbContext
 {
     public DBContext(DbContextOptions<DBContext> options)
         : base(options)
