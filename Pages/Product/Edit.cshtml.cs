@@ -1,6 +1,6 @@
 #nullable disable
 
-namespace ProductModel
+namespace Products
 {
     public class EditModel : PageModel
     {

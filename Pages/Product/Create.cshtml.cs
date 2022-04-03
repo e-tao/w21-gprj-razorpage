@@ -1,5 +1,5 @@
 #nullable disable
-namespace ProductModel
+namespace Products
 {
     public class CreateModel : PageModel
     {

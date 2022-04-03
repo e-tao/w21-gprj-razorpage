@@ -1,5 +1,5 @@
 @page
-@model ProductModel.DeleteModel
+@model Products.DeleteModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -61,7 +61,7 @@
             @Html.DisplayFor(model => model.Product.BestBefore)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Product.ProductId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
