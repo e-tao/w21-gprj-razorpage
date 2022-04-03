@@ -27,9 +27,13 @@ public class Product
     public decimal Price { get; set; }
 
     [Display(Name = "Manufacture Date")]
+    [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+    [DataType(DataType.Date)]
     public DateTime ManufactureDate { get; set; }
 
     [Display(Name = "Best Before")]
+    [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+    [DataType(DataType.Date)]
     public DateTime BestBefore { get; set; }
 
 }
