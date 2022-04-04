@@ -14,12 +14,12 @@ namespace w21_gprj_razorpage.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<Employee> _userManager;
+        private readonly SignInManager<Employee> _signInManager;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<Employee> userManager,
+            SignInManager<Employee> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -55,12 +55,26 @@ namespace w21_gprj_razorpage.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [MinLength(2, ErrorMessage = "A single letter First Name?")]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+
+            [MinLength(2, ErrorMessage = "A single letter Last Name?")]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
             [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            [Display(Name = "Phone Number")]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$", ErrorMessage = "Phone number format is incorrect!")]
+            public string Phone { get; set; }
+
+            [Required]
+            [Display(Name = "Job Title")]
+            public Position Title { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(Employee user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -69,7 +83,10 @@ namespace w21_gprj_razorpage.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Title = user.Title,
+                Phone = user.Phone,
             };
         }
 
@@ -99,16 +116,12 @@ namespace w21_gprj_razorpage.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            user.Title = Input.Title != user.Title ? Input.Title : user.Title;
+            user.Phone = Input.Phone != user.Phone ? Input.Phone : user.Phone;
+
+            await _userManager.UpdateAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
-            }
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

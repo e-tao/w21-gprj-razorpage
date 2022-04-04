@@ -8,4 +8,6 @@ public class DBContext : IdentityDbContext
     }
 
     public DbSet<Product> Product { get; set; }
+
+    public DbSet<Employee> Employees { get; set; }
 }
