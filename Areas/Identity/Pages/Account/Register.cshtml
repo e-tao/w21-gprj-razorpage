@@ -1,59 +1,71 @@
 ﻿@page
 @model RegisterModel
+@inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
+
 @{
     ViewData["Title"] = "Register";
+    var loginUser = UserManager.GetUserAsync(User).Result;
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Input.Email"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" />
-                <label asp-for="Input.FirstName"></label>
-                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" />
-                <label asp-for="Input.LastName"></label>
-                <span asp-validation-for="Input.LastName" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <select asp-for="Input.Title" class="form-control" asp-items="Html.GetEnumSelectList<Position>()"
+    @if (SignInManager.IsSignedIn(User) && loginUser.Title.ToString() == "Supervisor")
+    {
+        <div class="col-md-4">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h2>Create a new account.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Input.Email"></label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" />
+                    <label asp-for="Input.FirstName"></label>
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" />
+                    <label asp-for="Input.LastName"></label>
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <select asp-for="Input.Title" class="form-control" asp-items="Html.GetEnumSelectList<Position>()"
                     aria-required="true"></select>
-                <span asp-validation-for="Input.Title" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.Phone" class="form-control" autocomplete="phone" aria-required="true" />
-                <label asp-for="Input.Phone"></label>
-                <span asp-validation-for="Input.Phone" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.Password"></label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
+                    <span asp-validation-for="Input.Title" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.Phone" class="form-control" autocomplete="phone" aria-required="true" />
+                    <label asp-for="Input.Phone"></label>
+                    <span asp-validation-for="Input.Phone" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.Password"></label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
                     aria-required="true" />
-                <label asp-for="Input.ConfirmPassword"></label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-
-    </div>
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-6 col-md-offset-2">
+            <p>Only Supervisor has the privalage to create user account.</p>
+            <p>Please <a id="login" asp-area="Identity" asp-page="/Account/Login">login</a> or
+                contact company system admin</p>
+        </div>
+    }
 </div>
 
 @section Scripts {
