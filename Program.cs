@@ -8,6 +8,7 @@ global using Microsoft.AspNetCore.Mvc.RazorPages;
 global using Microsoft.Extensions.DependencyInjection;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
