@@ -1,7 +1,9 @@
+namespace Products.Model;
+
 public class Product
 {
     public int ProductId { get; set; }
-    
+
 
     [Required]
     [Display(Name = "Product Name")]
@@ -27,10 +29,8 @@ public class Product
     [Range(0.00, 99.99)]
     public decimal Price { get; set; }
 
-    [Display(Name = "Manufacture Date")]
-    [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-    [DataType(DataType.Date)]
-    public DateTime ManufactureDate { get; set; }
+    [Display(Name = "Batch No.")]
+    public string? BatchNumber { get; set; }
 
     [Display(Name = "Best Before")]
     [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]

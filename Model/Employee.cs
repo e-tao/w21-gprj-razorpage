@@ -1,3 +1,4 @@
+namespace Products.Model;
 public class Employee : IdentityUser
 {
     [PersonalData]
