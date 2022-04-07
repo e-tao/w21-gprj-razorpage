@@ -1,8 +1,11 @@
 @page
 @model Products.IndexModel
+@inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
 
 @{
     ViewData["Title"] = "Index";
+    var signedIn = SignInManager.IsSignedIn(User);
 }
 
 <h1>Index</h1>
@@ -69,9 +72,17 @@
                     @Html.DisplayFor(modelItem => item.BestBefore)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ProductId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+                    @if (signedIn)
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit | </a>
+                        <a asp-page="./Details" asp-route-id="@item.ProductId">Details | </a>
+                        <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+                    }
+                    else
+                    {
+                        <p>Authorized user only</p>
+                        <p>Please <a id="login" asp-area="Identity" asp-page="/Account/Login">login</a></p>
+                    }
                 </td>
             </tr>
         }

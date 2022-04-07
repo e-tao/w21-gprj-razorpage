@@ -1,5 +1,6 @@
 @page
 @model Products.DeleteModel
+@inject SignInManager<Employee> SignInManager
 
 @{
     ViewData["Title"] = "Delete";
@@ -61,10 +62,24 @@
             @Html.DisplayFor(model => model.Product.BestBefore)
         </dd>
     </dl>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form method="post">
+            <input type="hidden" asp-for="Product.ProductId" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-page="./Index">Back to List</a>
+        </form>
+    }
+    else
+    {
+        <div class="col-md-6 col-md-offset-2">
+            <p>Only authorized user has the privilege to delete product.</p>
+            <p>Please <a id="login" asp-area="Identity" asp-page="/Account/Login">login</a> or
+                contact company system admin</p>
+        </div>
+    }
 
-    <form method="post">
-        <input type="hidden" asp-for="Product.ProductId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
-    </form>
+
+
+
 </div>
