@@ -1,6 +1,7 @@
 public class Product
 {
     public int ProductId { get; set; }
+    
 
     [Required]
     [Display(Name = "Product Name")]
