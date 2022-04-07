@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  font-family:cursive;
 }
 
 @media (min-width: 768px) {
@@ -15,4 +16,6 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpJVwiZp5-woh0mGHor2KLWJ8J_OqwVJVaCQ&usqp=CAU);
+  margin:0;
 }
