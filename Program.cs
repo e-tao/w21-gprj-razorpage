@@ -7,6 +7,7 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.RazorPages;
 global using Microsoft.Extensions.DependencyInjection;
 global using Products.Model;
+global using Products.Service;
 
 
 

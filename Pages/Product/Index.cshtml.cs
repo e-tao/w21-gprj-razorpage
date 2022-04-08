@@ -39,9 +39,7 @@ namespace Products
                 }
             }
 
-            NumberOfNotification = LowStock.Count + AlmostExpire.Count + Expired.Count;
+            NumberOfNotification = Notification.NotificationNo(LowStock.Count, Expired.Count, AlmostExpire.Count);
         }
-
-
     }
 }
