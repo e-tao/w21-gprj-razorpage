@@ -1,19 +1,20 @@
 #nullable disable
+
+
 namespace Products
 {
     public class IndexModel : PageModel
     {
         private readonly DBContext _context;
-        private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(DBContext context, ILogger<IndexModel> logger)
+        public IndexModel(DBContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
+        public IList<Employee> Employees { get; set; }
         public IList<Product> Product { get; set; }
-        public IDictionary<string, int> LowStock { get; set; } = new Dictionary<string, int>();
+        public IDictionary<string, string> LowStock { get; set; } = new Dictionary<string, string>();
         public IDictionary<string, string> AlmostExpire { get; set; } = new Dictionary<string, string>();
         public IDictionary<string, string> Expired { get; set; } = new Dictionary<string, string>();
 
@@ -22,26 +23,44 @@ namespace Products
         public async Task OnGetAsync()
         {
             Product = await _context.Product.ToListAsync();
-            // List<string> lowStock = new();
+        }
+
+        public async Task StockCheck()
+        {
+            Product = await _context.Product.ToListAsync();
+            string msg = "";
+
             foreach (var item in Product)
             {
                 if (item.Quantity < 10)
                 {
-                    LowStock.Add(item.ProductName, item.Quantity);
+                    LowStock.Add(item.ProductName, item.Quantity.ToString());
+                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " current stcok is low, please order soon</li>";
                 }
                 else if ((item.BestBefore - DateTime.Today).TotalDays < 0)
                 {
                     Expired.Add(item.ProductName, item.BatchNumber);
+                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is expering in 7 days.</li>";
                 }
                 else if ((item.BestBefore - DateTime.Today).TotalDays <= 7)
                 {
                     AlmostExpire.Add(item.ProductName, item.BatchNumber);
+                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is already expired.</li>";
                 }
             }
 
-            NumberOfNotification = LowStock.Count + AlmostExpire.Count + Expired.Count;
+            NumberOfNotification = Notification.NotificationNo(LowStock.Count, Expired.Count, AlmostExpire.Count);
+
+            if (NumberOfNotification > 0)
+            {
+                Employees = await _context.Employees.ToListAsync();
+                var emails = Employees.Where(e => e.Title == Position.Supervisor).Select(e => e.Email).ToList();
+
+                foreach (var email in emails)
+                {
+                    await Notification.EmailNotification(email, "Inventory System Notification", msg);
+                }
+            }
         }
-
-
     }
 }

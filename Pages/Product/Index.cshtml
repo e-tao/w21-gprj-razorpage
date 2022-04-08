@@ -88,7 +88,7 @@
         }
     </tbody>
 </table>
-@if (Model.NumberOfNotification > 0)
+@if (SignInManager.IsSignedIn(User) && Model.NumberOfNotification > 0)
 {
     <details class="btn btn-primary">
         <summary>Notifications <span class="badge badge-light">@Model.NumberOfNotification</span></summary>
@@ -105,7 +105,7 @@
                 @Html.DisplayFor(item => kvp.Value) is expering in 7 days.</div>
         }
 
-        @foreach (KeyValuePair<string, int> kvp in Model.LowStock)
+        @foreach (KeyValuePair<string, string> kvp in Model.LowStock)
         {
             <div class="alert alert-warning opacity-75" role="alert">Product @Html.DisplayFor(item => kvp.Key) current stcok
                 @Html.DisplayFor(item => kvp.Value) is low, please order
