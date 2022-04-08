@@ -1,10 +1,44 @@
 ﻿@page
 @model IndexModel
+@inject SignInManager<Employee> SignInManager
+
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4"><strong>Panda Pizza Ltd</strong><br> Inventory Management System</h1>
-    <p>Learn about <a href="https://localhost:7189/Identity/Account/Manage">Manage your account!</a>.</p>
-</div>
+    <h1 class="display-4"><strong>Panda Pizza</strong><br> Inventory Management System</h1>
+    <div class="container">
+        <div class="col fs-5">
+            <div class="row">
+                <ul class="list-unstyled text-start">
+                    <li>The Inventory management system has two levels of user: Satff and Supervisor</li>
+                    <li>Supervisor Responsibilities:</li>
+                    <ul>
+                        <li>create new users</li>
+                        <li>monitor inventory for stock levles</li>
+                        <li>arrange order delivery in timely manner</li>
+                    </ul>
+                    <li>Staff Responsibilities</li>
+                    <ul>
+                        <li>maintain the stock information</li>
+                        <li>order new stock</li>
+                    </ul>
+                </ul>
+            </div>
+            @if (!SignInManager.IsSignedIn(User))
+            {
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <a id="login" asp-area="Identity" asp-page="/Account/Login"> <button type="button"
+                        class="btn btn-primary">START BY LOGIN</button></a>
+                </div>
+            }
+            else
+            {
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <a id="login" asp-area="" asp-page="/Product/Index"> <button type="button"
+                        class="btn btn-primary">MANAGE PRODUCTS</button></a>
+                </div>
+            }
+        </div>
+    </div>
