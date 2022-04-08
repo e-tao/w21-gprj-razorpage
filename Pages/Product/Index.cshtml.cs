@@ -49,12 +49,12 @@ namespace Products
                 else if ((item.BestBefore - DateTime.Today).TotalDays < 0)
                 {
                     Expired.Add(item.ProductName, item.BatchNumber);
-                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is expering in 7 days.</li>";
+                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is already expired.</li>";
                 }
                 else if ((item.BestBefore - DateTime.Today).TotalDays <= 7)
                 {
                     AlmostExpire.Add(item.ProductName, item.BatchNumber);
-                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is already expired.</li>";
+                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is expering in 7 days.</li>";
                 }
             }
 
