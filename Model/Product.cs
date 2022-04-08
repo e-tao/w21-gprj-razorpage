@@ -9,6 +9,9 @@ public class Product
     [Display(Name = "Product Name")]
     public string? ProductName { get; set; }
 
+    [Display(Name = "Product Image")]
+    public string? ImageLink { get; set; }
+
     [Required]
     [Display(Name = "Product Type")]
     public ProductType Type { get; set; }

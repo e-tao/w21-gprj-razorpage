@@ -19,3 +19,8 @@ body {
   /* background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpJVwiZp5-woh0mGHor2KLWJ8J_OqwVJVaCQ&usqp=CAU); */
   margin:0;
 }
+
+img{
+  width:120px;
+
+}
