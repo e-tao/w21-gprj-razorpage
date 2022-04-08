@@ -1,8 +1,12 @@
 ﻿@page
 @model IndexModel
+@inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
+    var signedIn = SignInManager.IsSignedIn(User);
+    var loginUser = UserManager.GetUserAsync(User).Result;
 }
 
 <h3>@ViewData["Title"]</h3>
@@ -26,9 +30,16 @@
                 <label asp-for="Input.LastName" class="form-label"></label>
             </div>
             <div class="form-floating">
-                <select asp-for="Input.Title" class="form-control"
+                @if (signedIn && loginUser.Title.ToString() == "Supervisor")
+                {
+                    <select asp-for="Input.Title" class="form-control"
                     asp-items="Html.GetEnumSelectList<Position>()"></select>
-                <span asp-validation-for="Input.Title" class="text-danger"></span>
+                    <span asp-validation-for="Input.Title" class="text-danger"></span>
+                }
+                else
+                {
+                    <input asp-for="Input.Title" class="form-control" disabled />
+                }
             </div>
             <div class="form-floating">
                 <input asp-for="Input.Phone" class="form-control" />
