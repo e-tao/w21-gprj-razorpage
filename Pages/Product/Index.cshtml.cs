@@ -28,9 +28,21 @@ namespace Products
 
         public int NumberOfNotification { get; set; }
 
+        public uint StockThreshold { get; set; } = 10;
+
+        public string Resend { get; set; }
+
         public async Task OnGetAsync()
         {
             Product = await _context.Product.ToListAsync();
+            await StockCheck();
+        }
+
+        public async Task OnPostAsync()
+        {
+            StockThreshold = uint.Parse(Request.Form["StockThreshold"]);
+            Resend = Request.Form["SendEmail"];
+            Notification.EmailSend = Resend == "on" ? false : true; //switch for resend email everytime the threshode changes;
             await StockCheck();
         }
 
@@ -41,7 +53,7 @@ namespace Products
 
             foreach (var item in Product)
             {
-                if (item.Quantity < 10)
+                if (item.Quantity < StockThreshold)
                 {
                     LowStock.Add(item.ProductName, item.Quantity.ToString());
                     msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " current stcok is low, please order soon</li>";
