@@ -35,7 +35,7 @@
                 @Html.DisplayNameFor(model => model.Product[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].ManufactureDate)
+                @Html.DisplayNameFor(model => model.Product[0].BatchNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].BestBefore)
@@ -66,7 +66,7 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ManufactureDate)
+                    @Html.DisplayFor(modelItem => item.BatchNumber)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BestBefore)
@@ -88,3 +88,29 @@
         }
     </tbody>
 </table>
+@if (Model.NumberOfNotification > 0)
+{
+    <details class="btn btn-primary">
+        <summary>Notifications <span class="badge badge-light">@Model.NumberOfNotification</span></summary>
+
+        @foreach (KeyValuePair<string, string> kvp in Model.Expired)
+        {
+            <div class="alert alert-danger opacity-85" role="alert">Product @Html.DisplayFor(item => kvp.Key) with batch number
+                @Html.DisplayFor(item => kvp.Value) is already expired.</div>
+        }
+
+        @foreach (KeyValuePair<string, string> kvp in Model.AlmostExpire)
+        {
+            <div class="alert alert-danger opacity-75" role="alert">Product @Html.DisplayFor(item => kvp.Key) with batch number
+                @Html.DisplayFor(item => kvp.Value) is expering in 7 days.</div>
+        }
+
+        @foreach (KeyValuePair<string, int> kvp in Model.LowStock)
+        {
+            <div class="alert alert-warning opacity-75" role="alert">Product @Html.DisplayFor(item => kvp.Key) current stcok
+                @Html.DisplayFor(item => kvp.Value) is low, please order
+                soon</div>
+        }
+
+    </details>
+}
