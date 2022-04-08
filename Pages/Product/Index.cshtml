@@ -9,7 +9,7 @@
     var loginUser = UserManager.GetUserAsync(User).Result;
 }
 
-<h1>Index</h1>
+<h1>Current Stock</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -76,8 +76,11 @@
                     @if (signedIn)
                     {
                         <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit | </a>
-                        <a asp-page="./Details" asp-route-id="@item.ProductId">Details | </a>
-                        <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+                        <a asp-page="./Details" asp-route-id="@item.ProductId">Details </a>
+                        @if (loginUser.Title.ToString() == "Supervisor")
+                        {
+                            <a asp-page="./Delete" asp-route-id="@item.ProductId">| Delete</a>
+                        }
                     }
                     else
                     {
@@ -127,18 +130,26 @@
                 @if (SignInManager.IsSignedIn(User) && loginUser.Title.ToString() == "Supervisor")
                 {
                     <form method="post">
-                        <input type="number" min="1" step="1" value=@Model.StockThreshold name="StockThreshold"
-                    class="form-control" placeholder="Stock Warning Level" required />
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
-                        name="SendEmail" />
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Send email notification</label>
+                        <div class="row g-3">
+                            <div class="col-sm-3">
+                                <input type="number" min="1" step="1" value=@Model.StockThreshold name="StockThreshold"
+                            class="form-control" placeholder="Stock Warning Level" required />
+                            </div>
+                            <div class="col-sm">
+                                <button type="submit" class="btn btn-primary">Update Threshold</button>
+                            </div>
+                            <div class="col-sm-5">
+                                <span class="col form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                                name="SendEmail" />
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">Send email notification</label>
+                                </span>
+                            </div>
+
                         </div>
-                        <button type="submit" class="btn btn-primary">UPDATE THRESHOLD</button>
                     </form>
                 }
             </div>
-
         </div>
     </div>
 }

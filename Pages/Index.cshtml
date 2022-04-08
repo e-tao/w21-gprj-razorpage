@@ -12,18 +12,30 @@
         <div class="col fs-5">
             <div class="row">
                 <ul class="list-unstyled text-start">
-                    <li>The Inventory management system has two levels of user: Satff and Supervisor</li>
+                    <li>The Inventory management system has two levels of user: Satff and Supervisor</li><br>
                     <li>Supervisor Responsibilities:</li>
                     <ul>
                         <li>create new users</li>
+                        <li>maintain product list</li>
                         <li>monitor inventory for stock levles</li>
-                        <li>arrange order delivery in timely manner</li>
-                    </ul>
+                        <li>handle system notification events</li>
+                    </ul><br>
                     <li>Staff Responsibilities</li>
                     <ul>
                         <li>maintain the stock information</li>
-                        <li>order new stock</li>
+                    </ul><br>
+
+                    <li>Email notification</li>
+                    <li>Emails are sent out when there are events require user attention, this includes but not limited
+                        to:</li>
+                    <ul>
+                        <li>Low stock level</li>
+                        <li>Products are expiring soon</li>
+                        <li>Products are already expired</li>
                     </ul>
+                    <li>If this program is stopped, it will send email on starup up</li>
+                    <li>If the program is running, it will send email daily for unsolved problems</li>
+                </ul>
                 </ul>
             </div>
             @if (!SignInManager.IsSignedIn(User))
