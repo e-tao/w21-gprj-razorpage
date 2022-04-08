@@ -88,7 +88,7 @@
         }
     </tbody>
 </table>
-@if (Model.NumberOfNotification > 0)
+@if (SignInManager.IsSignedIn(User) && Model.NumberOfNotification > 0)
 {
     <details class="btn btn-primary">
         <summary>Notifications <span class="badge badge-light">@Model.NumberOfNotification</span></summary>
