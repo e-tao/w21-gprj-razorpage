@@ -9,6 +9,7 @@ global using Microsoft.Extensions.DependencyInjection;
 global using System.Security.Claims;
 global using Products.Model;
 global using Products.Service;
+global using Products;
 
 
 

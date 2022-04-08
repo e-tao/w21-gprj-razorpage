@@ -8,6 +8,11 @@ namespace Products.Service;
 
 public class Notification
 {
+
+    public static bool EmailSend { get; set; }
+
+    public static DateTime SendDate { get; set; }
+
     public static int NotificationNo(params int[] numbers)
     {
         int total = 0;

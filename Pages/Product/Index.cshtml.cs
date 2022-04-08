@@ -6,11 +6,19 @@ namespace Products
     public class IndexModel : PageModel
     {
         private readonly DBContext _context;
+        private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(DBContext context)
         {
             _context = context;
+            // _logger = logger;
         }
+
+        // public IndexModel(DBContext context, ILogger<IndexModel> logger)
+        // {
+        //     _context = context;
+        //     _logger = logger;
+        // }
 
         public IList<Employee> Employees { get; set; }
         public IList<Product> Product { get; set; }
@@ -23,6 +31,7 @@ namespace Products
         public async Task OnGetAsync()
         {
             Product = await _context.Product.ToListAsync();
+            await StockCheck();
         }
 
         public async Task StockCheck()
@@ -51,7 +60,13 @@ namespace Products
 
             NumberOfNotification = Notification.NotificationNo(LowStock.Count, Expired.Count, AlmostExpire.Count);
 
-            if (NumberOfNotification > 0)
+            // _logger.Log(LogLevel.Information, Notification.EmailSend.ToString());
+            // _logger.Log(LogLevel.Information, (DateTime.Now - Notification.SendDate).TotalDays.ToString());
+            // _logger.Log(LogLevel.Information, NumberOfNotification.ToString());
+
+            //when the app runs for the first time, the EmailSend condition will always met and make sure the email is send at least once
+            //if the notification is greater than 0
+            if (Notification.EmailSend == false || ((DateTime.Now - Notification.SendDate).TotalDays > 1) && NumberOfNotification > 0)
             {
                 Employees = await _context.Employees.ToListAsync();
                 var emails = Employees.Where(e => e.Title == Position.Supervisor).Select(e => e.Email).ToList();

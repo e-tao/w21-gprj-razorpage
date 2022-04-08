@@ -23,6 +23,8 @@ public class IndexModel : PageModel
             {
                 Products.IndexModel stock = new Products.IndexModel(_context);
                 await stock.StockCheck();
+                Notification.EmailSend = true;
+                Notification.SendDate = DateTime.Today;
             }
         }
     }
