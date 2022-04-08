@@ -6,6 +6,7 @@ global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.RazorPages;
 global using Microsoft.Extensions.DependencyInjection;
+global using System.Security.Claims;
 global using Products.Model;
 global using Products.Service;
 
