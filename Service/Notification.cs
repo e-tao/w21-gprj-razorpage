@@ -18,7 +18,7 @@ public class Notification
         return total;
     }
 
-    public static async Task EmailNotification(string to, string subject)
+    public static async Task EmailNotification(string to, string subject, string body)
     {
         MailboxAddress from = new MailboxAddress("Inventory System Reminder", "no-reply@panda.pizza");
         var msg = new MimeMessage();
@@ -28,8 +28,7 @@ public class Notification
 
         msg.Body = new TextPart("html")
         {
-            Text = @"This message is generated automatically, there are some products need your immidiate attention.
-            Please login the Inventory System for details."
+            Text = @"This message is generated automatically, there are some products need your immidiate attention. See details below<br><br>" + "<ul>" + body + "</ul>"
         };
 
         using (var client = new SmtpClient())

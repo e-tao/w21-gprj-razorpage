@@ -28,20 +28,24 @@ namespace Products
         public async Task StockCheck()
         {
             Product = await _context.Product.ToListAsync();
+            string msg = "";
 
             foreach (var item in Product)
             {
                 if (item.Quantity < 10)
                 {
                     LowStock.Add(item.ProductName, item.Quantity.ToString());
+                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " current stcok is low, please order soon</li>";
                 }
                 else if ((item.BestBefore - DateTime.Today).TotalDays < 0)
                 {
                     Expired.Add(item.ProductName, item.BatchNumber);
+                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is expering in 7 days.</li>";
                 }
                 else if ((item.BestBefore - DateTime.Today).TotalDays <= 7)
                 {
                     AlmostExpire.Add(item.ProductName, item.BatchNumber);
+                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is already expired.</li>";
                 }
             }
 
@@ -54,7 +58,7 @@ namespace Products
 
                 foreach (var email in emails)
                 {
-                    await Notification.EmailNotification(email, "Inventory System Notification");
+                    await Notification.EmailNotification(email, "Inventory System Notification", msg);
                 }
             }
         }
