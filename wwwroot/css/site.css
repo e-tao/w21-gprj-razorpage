@@ -44,3 +44,7 @@ table.table-hover tbody tr:hover{
   background-color:#8AF43B;
 }
 
+#icon{
+  width:20px;
+  margin-right: 5px;
+}

@@ -8,13 +8,14 @@
         {
 
             <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><button type="button"
-                class="btn btn-outline-primary">@UserManager.GetUserAsync(User).Result.FirstName Profile</button>
+                class="btn btn-outline-primary"><span><img id="icon"
+                        src="~/img/panda.png" /></span>@UserManager.GetUserAsync(User).Result.FirstName Profile</button>
             </a>
 
 
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
             asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button type="button" class="btn btn-outline-danger">Logout</button>
+                <button id="logout" type="submit" class="btn btn-outline-danger">Logout</button>
             </form>
 
         }
