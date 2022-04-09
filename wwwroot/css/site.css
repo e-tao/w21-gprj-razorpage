@@ -16,6 +16,20 @@ html {
 
 body {
   margin-bottom: 60px;
-  background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpJVwiZp5-woh0mGHor2KLWJ8J_OqwVJVaCQ&usqp=CAU);
+  /* background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpJVwiZp5-woh0mGHor2KLWJ8J_OqwVJVaCQ&usqp=CAU); */
   margin:0;
+}
+
+img{
+  width:90px;
+}
+
+th img{
+  width:12px;
+}
+
+#wrap-td {
+  word-wrap: break-word;
+  min-width: 160px;
+  max-width: 160px;
 }
