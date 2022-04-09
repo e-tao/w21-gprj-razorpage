@@ -6,11 +6,14 @@ public class Product
 
 
     [Required]
-    [Display(Name = "Product Name")]
+    [Display(Name = "Name")]
     public string? ProductName { get; set; }
 
+    [Display(Name = "Product Image")]
+    public string? ImageLink { get; set; }
+
     [Required]
-    [Display(Name = "Product Type")]
+    [Display(Name = "Type")]
     public ProductType Type { get; set; }
 
     public PizzaSize Size { get; set; }
