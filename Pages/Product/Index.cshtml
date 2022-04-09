@@ -8,13 +8,18 @@
     var signedIn = SignInManager.IsSignedIn(User);
     var loginUser = UserManager.GetUserAsync(User).Result;
 }
+<style>
+    table.table-hover tbody tr:hover{
+        background-color:#8AF43B;
+    }
+</style>
 
 <h1>Current Stock</h1>
 
 <p>
     <a asp-page="Create"><button type="button" class="btn btn-primary">Create New</button></a>
 </p>
-<table class="table">
+<table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
             <th>
