@@ -40,6 +40,7 @@ namespace Products
 
         public async Task OnPostAsync()
         {
+            Product = await _context.Product.ToListAsync();
             StockThreshold = uint.Parse(Request.Form["StockThreshold"]);
             Resend = Request.Form["SendEmail"];
             Notification.EmailSend = Resend == "on" ? false : true; //switch for resend email everytime the threshode changes;

@@ -8,168 +8,172 @@
     var signedIn = SignInManager.IsSignedIn(User);
     var loginUser = UserManager.GetUserAsync(User).Result;
 }
-<style>
-    table.table-hover tbody tr:hover{
-        background-color:#8AF43B;
-    }
-</style>
 
-<h1>Current Stock</h1>
+<div class="card border-success mb-3">
+    <h4 class="card-header">Current Stock</h4>
+    <div class="card-body text-success">
+        <table class="table table-bordered table-striped table-hover bg-light">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product[0].ImageLink)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product[0].ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product[0].Type)
+                    </th>
+                    <th>
 
-<p>
-    <a asp-page="Create"><button type="button" class="btn btn-primary">Create New</button></a>
-</p>
-<table class="table table-bordered table-striped table-hover">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].ImageLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Type)
-            </th>
-            <th>
+                        @Html.DisplayNameFor(model => model.Product[0].Size)
 
-                @Html.DisplayNameFor(model => model.Product[0].Size)
-
-            </th>
-            <th>
-                <a asp-page-handler="SortQuantityAsc"><img src="~/img/caret-up.svg" /></a>
-                @Html.DisplayNameFor(model => model.Product[0].Quantity)
-                <a asp-page-handler="SortQuantityDesc"><img src="~/img/caret-down.svg" /></a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].IsGlutenFree)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].BatchNumber)
-            </th>
-            <th>
-                <a asp-page-handler="SortBestbeforeAsc"><img src="~/img/caret-up.svg" /></a>
-                @Html.DisplayNameFor(model => model.Product[0].BestBefore)
-                <a asp-page-handler="SortBestbeforeDesc"><img src="~/img/caret-down.svg" /></a>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Product)
-        {
-            <tr>
-                <td>
-                    <img src=@item.ImageLink />
-                    @* @Html.DisplayFor(modelItem => item.ImageLink) *@
-                </td>
-                <td id=wrap-td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Size)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsGlutenFree)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BatchNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BestBefore)
-                </td>
-                <td>
-                    @if (signedIn)
-                    {
-                        <a asp-page="./Edit" asp-route-id="@item.ProductId"><button type="button"
-                        class="btn btn-outline-primary btn-sm">Edit</button></a>
-                        <a asp-page="./Details" asp-route-id="@item.ProductId"><button type="button"
-                        class="btn btn-outline-success btn-sm">Details</button></a>
-                        @if (loginUser.Title.ToString() == "Supervisor")
-                        {
-                            <a asp-page="./Delete" asp-route-id="@item.ProductId"><button type="button"
-                        class="btn btn-outline-danger btn-sm">Delete</button></a>
-                        }
-                    }
-                    else
-                    {
-                        <p>Authorized user only</p>
-                        <p>Please <a id="login" asp-area="Identity" asp-page="/Account/Login">login</a></p>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-@if (SignInManager.IsSignedIn(User) && Model.NumberOfNotification > 0)
-{
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <details class="btn btn-primary">
-                    <summary>Notifications <span class="badge badge-light">@Model.NumberOfNotification</span></summary>
-
-                    @foreach (KeyValuePair<string, string> kvp in Model.Expired)
-                    {
-                        <div class="alert alert-danger opacity-85" role="alert">Product @Html.DisplayFor(item => kvp.Key) with
-                            batch number
-                            @Html.DisplayFor(item => kvp.Value) is already expired.</div>
-                    }
-
-                    @foreach (KeyValuePair<string, string> kvp in Model.AlmostExpire)
-                    {
-                        <div class="alert alert-danger opacity-75" role="alert">Product @Html.DisplayFor(item => kvp.Key) with
-                            batch number
-                            @Html.DisplayFor(item => kvp.Value) is expering in 7 days.</div>
-                    }
-
-                    @foreach (KeyValuePair<string, string> kvp in Model.LowStock)
-                    {
-                        <div class="alert alert-warning opacity-75" role="alert">Product @Html.DisplayFor(item => kvp.Key)
-                            current stcok
-                            @Html.DisplayFor(item => kvp.Value) is low, please order
-                            soon</div>
-                    }
-
-                </details>
-            </div>
-            <div class="col">
-                @if (SignInManager.IsSignedIn(User) && loginUser.Title.ToString() == "Supervisor")
+                    </th>
+                    <th>
+                        <a asp-page-handler="SortQuantityAsc"><img src="~/img/caret-up.svg" /></a>
+                        @Html.DisplayNameFor(model => model.Product[0].Quantity)
+                        <a asp-page-handler="SortQuantityDesc"><img src="~/img/caret-down.svg" /></a>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product[0].IsGlutenFree)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product[0].Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product[0].BatchNumber)
+                    </th>
+                    <th>
+                        <a asp-page-handler="SortBestbeforeAsc"><img src="~/img/caret-up.svg" /></a>
+                        @Html.DisplayNameFor(model => model.Product[0].BestBefore)
+                        <a asp-page-handler="SortBestbeforeDesc"><img src="~/img/caret-down.svg" /></a>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Product)
                 {
-                    <form method="post">
-                        <div class="row g-3">
-                            <div class="col-sm-3">
-                                <input type="number" min="1" step="1" value=@Model.StockThreshold name="StockThreshold"
-                            class="form-control" placeholder="Stock Warning Level" required />
-                            </div>
-                            <div class="col-sm">
-                                <button type="submit" class="btn btn-primary">Update Threshold</button>
-                            </div>
-                            <div class="col-sm-5">
-                                <span class="col form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
-                                name="SendEmail" />
-                                    <label class="form-check-label" for="flexSwitchCheckDefault">Send email notification</label>
-                                </span>
-                            </div>
-                        </div>
-                    </form>
+                    <tr>
+                        <td>
+                            <img src=@item.ImageLink />
+                            @* @Html.DisplayFor(modelItem => item.ImageLink) *@
+                        </td>
+                        <td id=wrap-td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Size)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsGlutenFree)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BatchNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BestBefore)
+                        </td>
+                        <td>
+                            @if (signedIn)
+                            {
+                                <a asp-page="./Edit" asp-route-id="@item.ProductId"><button type="button"
+                                class="btn btn-outline-warning btn-sm">Edit</button></a>
+                                <a asp-page="./Details" asp-route-id="@item.ProductId"><button type="button"
+                                class="btn btn-outline-success btn-sm">Details</button></a>
+                                @if (loginUser.Title.ToString() == "Supervisor")
+                                {
+                                    <a asp-page="./Delete" asp-route-id="@item.ProductId"><button type="button"
+                                class="btn btn-outline-danger btn-sm">Delete</button></a>
+                                }
+                            }
+                            else
+                            {
+                                <p>Authorized user only</p>
+                                <p>Please <a id="login" asp-area="Identity" asp-page="/Account/Login">login</a></p>
+                            }
+                        </td>
+                    </tr>
                 }
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
-}
+    <div class="card-footer">
+        @if (SignInManager.IsSignedIn(User) && Model.NumberOfNotification > 0)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <details class="btn btn-primary">
+                            <summary>Notifications <span class="badge badge-light">@Model.NumberOfNotification</span>
+                            </summary>
+
+                            @foreach (KeyValuePair<string, string> kvp in Model.Expired)
+                            {
+                                <div class="alert alert-danger opacity-85" role="alert">Product @Html.DisplayFor(item =>
+                            kvp.Key)
+                                    with
+                                    batch number
+                                    @Html.DisplayFor(item => kvp.Value) is already expired.</div>
+                            }
+
+                            @foreach (KeyValuePair<string, string> kvp in Model.AlmostExpire)
+                            {
+                                <div class="alert alert-danger opacity-75" role="alert">Product @Html.DisplayFor(item =>
+                            kvp.Key)
+                                    with
+                                    batch number
+                                    @Html.DisplayFor(item => kvp.Value) is expering in 7 days.</div>
+                            }
+
+                            @foreach (KeyValuePair<string, string> kvp in Model.LowStock)
+                            {
+                                <div class="alert alert-warning opacity-75" role="alert">Product @Html.DisplayFor(item =>
+                            kvp.Key)
+                                    current stcok
+                                    @Html.DisplayFor(item => kvp.Value) is low, please order
+                                    soon</div>
+                            }
+
+                        </details>
+                        <a asp-page="Create"><button type="button" class="btn btn-primary">Create New</button></a>
+
+                    </div>
+                    <div class="col">
+                        @if (SignInManager.IsSignedIn(User) && loginUser.Title.ToString() == "Supervisor")
+                        {
+                            <form method="post">
+                                <div class="row g-3">
+                                    <div class="col-sm-3">
+                                        <input type="number" min="1" step="1" value=@Model.StockThreshold name="StockThreshold"
+                                    class="form-control" placeholder="Stock Warning Level" required />
+                                    </div>
+                                    <div class="col-sm">
+                                        <button type="submit" class="btn btn-primary">Update Threshold</button>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span class="col form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                        id="flexSwitchCheckDefault" name="SendEmail" />
+                                            <label class="form-check-label fw-bold" for="flexSwitchCheckDefault">Send email
+                                                notification</label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
