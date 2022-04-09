@@ -22,7 +22,8 @@ public class IndexModel : PageModel
             if (claimsIdentity.IsAuthenticated)
             {
                 Products.IndexModel stock = new Products.IndexModel(_context);
-                await stock.StockCheck();
+                stock.Product = await _context.Product.ToListAsync();
+                await stock.StockCheck(stock.Product);
                 Notification.EmailSend = true;
                 Notification.SendDate = DateTime.Today;
             }

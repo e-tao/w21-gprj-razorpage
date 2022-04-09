@@ -35,7 +35,7 @@ namespace Products
         public async Task OnGetAsync()
         {
             Product = await _context.Product.ToListAsync();
-            await StockCheck();
+            await StockCheck(Product);
         }
 
         public async Task OnPostAsync()
@@ -43,12 +43,12 @@ namespace Products
             StockThreshold = uint.Parse(Request.Form["StockThreshold"]);
             Resend = Request.Form["SendEmail"];
             Notification.EmailSend = Resend == "on" ? false : true; //switch for resend email everytime the threshode changes;
-            await StockCheck();
+            await StockCheck(Product);
         }
 
-        public async Task StockCheck()
+        public async Task StockCheck(IList<Product> product)
         {
-            Product = await _context.Product.ToListAsync();
+            Product = product;
             string msg = "";
 
             foreach (var item in Product)
@@ -88,6 +88,30 @@ namespace Products
                     await Notification.EmailNotification(email, "Inventory System Notification", msg);
                 }
             }
+        }
+
+        public async Task OnGetSortBestbeforeAsc()
+        {
+            Product = await _context.Product.OrderBy(e => e.BestBefore).ToListAsync();
+            await StockCheck(Product);
+        }
+
+        public async Task OnGetSortBestbeforeDesc()
+        {
+            Product = await _context.Product.OrderByDescending(e => e.BestBefore).ToListAsync();
+            await StockCheck(Product);
+        }
+
+        public async Task OnGetSortQuantityAsc()
+        {
+            Product = await _context.Product.OrderBy(e => e.Quantity).ToListAsync();
+            await StockCheck(Product);
+        }
+
+        public async Task OnGetSortQuantityDesc()
+        {
+            Product = await _context.Product.OrderByDescending(e => e.Quantity).ToListAsync();
+            await StockCheck(Product);
         }
     }
 }
