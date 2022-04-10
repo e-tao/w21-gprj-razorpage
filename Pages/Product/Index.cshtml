@@ -4,7 +4,7 @@
 @inject UserManager<Employee> UserManager
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Current Stock";
     var signedIn = SignInManager.IsSignedIn(User);
     var loginUser = UserManager.GetUserAsync(User).Result;
 }
