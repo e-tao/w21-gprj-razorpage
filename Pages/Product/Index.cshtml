@@ -112,7 +112,7 @@
         {
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <details class="btn btn-primary">
                             <summary>Notifications <span class="badge badge-light">@Model.NumberOfNotification</span>
                             </summary>
@@ -148,7 +148,7 @@
 
 
                     </div>
-                    <div class="col-sm-1"><a asp-page="Create"><button type="button" class="btn btn-primary">Add
+                    <div class="col-sm-2"><a asp-page="Create"><button type="button" class="btn btn-primary">Add
                                 Product</button></a></div>
                     <div class="col-sm-5">
                         @if (SignInManager.IsSignedIn(User) && loginUser.Title.ToString() == "Supervisor")
