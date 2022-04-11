@@ -8,49 +8,49 @@
     var signedIn = SignInManager.IsSignedIn(User);
     var loginUser = UserManager.GetUserAsync(User).Result;
 }
+<div class="card border-success mb-3">
+    <h3 class="card-header">@ViewData["Title"]</h3>
+    <partial name="_StatusMessage" for="StatusMessage" />
+    <div class="row card-body text-success">
+        <div class="col-md-6">
+            <form id="profile-form" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating mb-2">
+                    <input asp-for="Username" class="form-control" disabled />
+                    <label asp-for="Username" class="form-label"></label>
+                </div>
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Username" class="form-control" disabled />
-                <label asp-for="Username" class="form-label"></label>
-            </div>
+                <div class="form-floating mb-2">
+                    <input asp-for="Input.FirstName" class="form-control" disabled />
+                    <label asp-for="Input.FirstName" class="form-label"></label>
+                </div>
 
-            <div class="form-floating">
-                <input asp-for="Input.FirstName" class="form-control" disabled />
-                <label asp-for="Input.FirstName" class="form-label"></label>
-            </div>
-
-            <div class="form-floating">
-                <input asp-for="Input.LastName" class="form-control" disabled />
-                <label asp-for="Input.LastName" class="form-label"></label>
-            </div>
-            <div class="form-floating">
-                @if (signedIn && loginUser.Title.ToString() == "Supervisor")
-                {
-                    <select asp-for="Input.Title" class="form-control"
-                    asp-items="Html.GetEnumSelectList<Position>()"></select>
-                    <span asp-validation-for="Input.Title" class="text-danger"></span>
-                }
-                else
-                {
-                    <input asp-for="Input.Title" class="form-control" disabled />
-                }
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.Phone" class="form-control" />
-                <label asp-for="Input.Phone" class="form-label"></label>
-                <span asp-validation-for="Input.Phone" class="text-danger"></span>
-            </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-        </form>
+                <div class="form-floating mb-2">
+                    <input asp-for="Input.LastName" class="form-control" disabled />
+                    <label asp-for="Input.LastName" class="form-label"></label>
+                </div>
+                <div class="form-floating mb-2">
+                    @if (signedIn && loginUser.Title.ToString() == "Supervisor")
+                    {
+                        <select asp-for="Input.Title" class="form-control"
+                        asp-items="Html.GetEnumSelectList<Position>()"></select>
+                        <span asp-validation-for="Input.Title" class="text-danger"></span>
+                    }
+                    else
+                    {
+                        <input asp-for="Input.Title" class="form-control" disabled />
+                    }
+                </div>
+                <div class="form-floating mb-2">
+                    <input asp-for="Input.Phone" class="form-control" />
+                    <label asp-for="Input.Phone" class="form-label"></label>
+                    <span asp-validation-for="Input.Phone" class="text-danger"></span>
+                </div>
+                <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            </form>
+        </div>
     </div>
 </div>
-
 @section Scripts {
 <partial name="_ValidationScriptsPartial" />
 }

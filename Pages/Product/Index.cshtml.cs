@@ -30,6 +30,8 @@ namespace Products
 
         public uint StockThreshold { get; set; } = 10;
 
+        public uint BestBeforeThreshold { get; set; } = 7;
+
         public string Resend { get; set; }
 
         public async Task OnGetAsync()
@@ -40,7 +42,9 @@ namespace Products
 
         public async Task OnPostAsync()
         {
+            Product = await _context.Product.ToListAsync();
             StockThreshold = uint.Parse(Request.Form["StockThreshold"]);
+            BestBeforeThreshold = uint.Parse(Request.Form["BestBeforeThreshold"]);
             Resend = Request.Form["SendEmail"];
             Notification.EmailSend = Resend == "on" ? false : true; //switch for resend email everytime the threshode changes;
             await StockCheck(Product);
@@ -63,10 +67,10 @@ namespace Products
                     Expired.Add(item.ProductName, item.BatchNumber);
                     msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is already expired.</li>";
                 }
-                else if ((item.BestBefore - DateTime.Today).TotalDays <= 7)
+                else if ((item.BestBefore - DateTime.Today).TotalDays <= BestBeforeThreshold)
                 {
                     AlmostExpire.Add(item.ProductName, item.BatchNumber);
-                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is expering in 7 days.</li>";
+                    msg += "<li>" + item.ProductName + " with batch number " + item.BatchNumber + " is expering in " + BestBeforeThreshold + " days.</li>";
                 }
             }
 

@@ -2,19 +2,22 @@
 
 @inject SignInManager<Employee> SignInManager
 @inject UserManager<Employee> UserManager
+<div class="bg-white">
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
 
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
-            title="Manage">Hello @UserManager.GetUserAsync(User).Result.FirstName</a>
-        </li>
-        <li class="nav-item">
+            <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><button type="button"
+                class="btn btn-outline-primary"><span><img id="icon"
+                        src="~/img/panda.png" /></span>@UserManager.GetUserAsync(User).Result.FirstName Profile</button>
+            </a>
+
+
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
             asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                <button id="logout" type="submit" class="btn btn-outline-danger">Logout</button>
             </form>
-        </li>
-    }
-</ul>
+
+        }
+    </ul>
+</div>

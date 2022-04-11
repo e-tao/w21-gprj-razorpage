@@ -15,16 +15,13 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin: 20px;
   /*background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpJVwiZp5-woh0mGHor2KLWJ8J_OqwVJVaCQ&usqp=CAU);*/
   background-image: url('../img/background.jpeg');
   background-size:auto;
   background-repeat:repeat;
-  font-family:Verdana, Arial,helvetica,Geneva,sans-serif;
-  font-size: medium;
- font-weight:400;
-color: rgba(29, 139, 52, 0.765);
-  margin:0;
+  color: rgba(29, 139, 52, 0.765);
+
 }
 
 img{
@@ -32,13 +29,22 @@ img{
 }
 
 th img{
-  width:12px;
-  font-family:Verdana, Arial,helvetica,Geneva,sans-serif;
- 
+  width:12px; 
 }
 
 #wrap-td {
   word-wrap: break-word;
   min-width: 160px;
   max-width: 160px;
+}
+
+
+
+table.table-hover tbody tr:hover{
+  background-color:#8AF43B;
+}
+
+#icon{
+  width:20px;
+  margin-right: 5px;
 }

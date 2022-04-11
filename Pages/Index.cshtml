@@ -5,53 +5,55 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<div class="card border-success mb-3">
+    <div class="text-center">
+        <h1 class="display-4 fw-bold">Panda Pizza<br> Inventory Management System</h1>
+        <div class="container ">
+            <div class="col fs-5 ">
+                <div class="row">
+                    <ul class="list-unstyled text-start">
+                        <li>The Inventory management system has two levels of user: Staff and Supervisor</li><br>
+                        <li>Supervisor Responsibilities:</li>
+                        <ul>
+                            <li>create new users</li>
+                            <li>promote or demote users</li>
+                            <li>maintain product list</li>
+                            <li>monitor inventory for stock levles</li>
+                            <li>handle system notification events</li>
+                        </ul><br>
+                        <li>Staff Responsibilities</li>
+                        <ul>
+                            <li>maintain the stock information</li>
+                        </ul><br>
 
-<div class="text-center">
-    <h1 class="display-4">Panda Pizza<br> Inventory Management System</h1>
-    <div class="container">
-        <div class="col fs-5">
-            <div class="row">
-                <ul class="list-unstyled text-start">
-                    <li>The Inventory management system has two levels of user: Satff and Supervisor</li><br>
-                    <li>Supervisor Responsibilities:</li>
-                    <ul>
-                        <li>create new users</li>
-                        <li>promote or demote users</li>
-                        <li>maintain product list</li>
-                        <li>monitor inventory for stock levles</li>
-                        <li>handle system notification events</li>
-                    </ul><br>
-                    <li>Staff Responsibilities</li>
-                    <ul>
-                        <li>maintain the stock information</li>
-                    </ul><br>
-
-                    <li>Email notification</li>
-                    <li>Emails are sent out when there are events require user attention, this includes but not limited
-                        to:</li>
-                    <ul>
-                        <li>Low stock level</li>
-                        <li>Products are expiring soon</li>
-                        <li>Products are already expired</li>
+                        <li>Email notification</li>
+                        <li>Emails are sent out when there are events require user attention, this includes but not
+                            limited
+                            to:</li>
+                        <ul>
+                            <li>Low stock level</li>
+                            <li>Products are expiring soon</li>
+                            <li>Products are already expired</li>
+                        </ul>
+                        <li>If this program is stopped, it will send email on starup up</li>
+                        <li>If the program is running, it will send email daily for unsolved problems</li>
                     </ul>
-                    <li>If this program is stopped, it will send email on starup up</li>
-                    <li>If the program is running, it will send email daily for unsolved problems</li>
-                </ul>
-                </ul>
+                    </ul>
+                </div>
+                @if (!SignInManager.IsSignedIn(User))
+                {
+                    <div class="d-grid gap-2 col-6 mx-auto  mb-2">
+                        <a id="login" asp-area="Identity" asp-page="/Account/Login"> <button type="button"
+                            class="btn btn-primary">START BY LOGIN</button></a>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-grid gap-2 col-6 mx-auto mb-2">
+                        <a id="login" asp-area="" asp-page="/Product/Index"> <button type="button"
+                            class="btn btn-primary">MANAGE PRODUCTS</button></a>
+                    </div>
+                }
             </div>
-            @if (!SignInManager.IsSignedIn(User))
-            {
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <a id="login" asp-area="Identity" asp-page="/Account/Login"> <button type="button"
-                        class="btn btn-primary">START BY LOGIN</button></a>
-                </div>
-            }
-            else
-            {
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <a id="login" asp-area="" asp-page="/Product/Index"> <button type="button"
-                        class="btn btn-primary">MANAGE PRODUCTS</button></a>
-                </div>
-            }
         </div>
     </div>
