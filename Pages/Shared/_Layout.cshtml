@@ -79,10 +79,14 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+   @* <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2022 -<strong> Panda Pizza</strong> <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
+    </footer>*@
+    <footer class="myfooter">
+  &copy; 2022 -<strong> Panda Pizza</strong> <a asp-area="" asp-page="/Privacy">Privacy</a>
+
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -92,4 +96,15 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
-</html>
+</html> 
+<style>
+.myfooter{
+    background:gray;
+    color:greenyellow;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0%;
+}
+</style>
+
