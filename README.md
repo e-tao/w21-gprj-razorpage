@@ -13,7 +13,7 @@ The project uses the following language, toolkit, IDE, database etc...
 
 
 ## Screenshot
-![Application Screenshot]([https://github.com/e-tao/w21-gprj-razorpage/blob/main/Capture.PNG?raw=true]
+![Application Screenshot](https://github.com/e-tao/w21-gprj-razorpage/blob/main/Capture.PNG)
 
 ## Team notes
 please create your own working/dev branch <em><strong>yourname-dev-branch</strong></em>, so we can keep the main safe from broken code.
